@@ -10,6 +10,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\level\Position;
 use pocketmine\math\Vector3;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\TextFormat;
 
 class Wilderness extends PluginBase{
 
@@ -21,12 +22,13 @@ class Wilderness extends PluginBase{
 		$chunkX = $x >> 4;
 		$chunkZ = $z >> 4;
 
-		$sender->sendMessage("Teleporting...");
+		$sender->sendMessage(TextFormat::colorize("&aTeleporting you to a random location...."));
+		$sender->addTitle(TextFormat::colorize("&a&lTeleporting..", "&b&lWild", 20, 20, 20));
 		RegionUtils::onChunkGenerate($level, $chunkX, $chunkZ, function() use($sender, $x, $z, $level) : void{
 			if($sender->isOnline()){
 				$y = $level->getHighestBlockAt($x, $z) + 1;
 				$sender->teleport(Position::fromObject(new Vector3($x, $y, $z), $level));
-				$sender->sendMessage("Teleported!");
+				$sender->sendMessage(TextFormat::colorize("&b&lTeleported succesfully!"));
 			}
 		});
 
