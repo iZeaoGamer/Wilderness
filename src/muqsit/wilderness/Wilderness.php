@@ -17,6 +17,7 @@ use pocketmine\level\Position;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
+use pocketmine\level\Position;
 
 class Wilderness extends PluginBase{
 
@@ -72,7 +73,7 @@ class Wilderness extends PluginBase{
 			return;
 		}
 
-		$pos = new Vector3($x, $y, $z);
+		$pos = new Position($x, $y, $z, $this->getServer()->getLevelByName("wild"));
 		if($player->teleport($this->do_safe_spawn ? $level->getSafeSpawn($pos) : Position::fromObject($pos, $level))){
 			$player->sendMessage($this->language->translate("on-teleport", [
 				"{PLAYER}" => $player->getName(),
